@@ -442,16 +442,68 @@ Publishing an artifact on the central maven repositry takes only 1 week. No! I'm
 ### Pros 
  
 - The artifacts are singed! 
+- Licenses are mandatory for publishing! 
 - There are many mirrors available all over the world. 
 
 ### Cons 
  
 - Pushing artifacts to the maven central repository is not as easy as it should be. Because this prozess is a pain in the ass ALL big Java Frameworks and companies are maintaining their own Maven Repository Servers. They push their artifacts first to their own MVN Server and then 1 or 2 weeks later the artifact appears on search.maven.org. 
 - Not really centralised. Because of the previous point. There are at least 30 different public maven repository servers out there, who are not mirroring search.maven.org. Java developers have to google to find the right repository server with the desired artifacts. 
-- Maven is a very complex tool! A `pom.xml` file can inherit from another `pom.xml` file. And a `pom.xml` file can include other `pom.xml` files. All that leads to complexity and sometimes to resolution errors. 
-- Maven violates the "Single Responsibility" pattern. Maven is not only doing dependecy management! It is doing all kind of things which has nothing to do with dependency management. For example executing tests, generating reports, generating JavaDoc and many other things which are, in other languages, done by other tools. 
+- Maven is a very complex tool! A `pom.xml` file can inherit from another `pom.xml` file. And a `pom.xml` file can include other `pom.xml` files. All that leads to complexity and sometimes to resolution errors. Another side effect of this architecutre is that resolving transitive dependencies this way is very slow, because different xml files have to be parsed to build a complete model for 1 single artifact. 
+- Maven violates the "Single Responsibility" pattern. Maven is not only doing dependecy management! It is doing all kind of things which has nothing to do with dependency management. For example executing tests, generating reports, generating JavaDoc, doing deployments and many other things which are, in other languages, done by other tools. 
+- Not sure why an artifact/package needs an "GroupId" AND an "ArtifactID" AND a version number. All other package managers are satisfied with a name and a version. KIS!
+- Having 5 lines of XML code for 1 single dependency is kind of over kill! 
 
 Maven is by far the most complex package manager I know. And know many of them! 
+
+
+## Lein (Clojure)
+
+[Leiningen](http://leiningen.org/) is the package manager for Clojure. It uses a maven repository as backend. Lein itself has the same scope as Maven. It's not just doing dependency management! At the same time it's a build tool. Dependencies are defined in a `project.clj` file. Here an example: 
+
+```
+(defproject leiningen.org "1.0.0"
+  :description "Generate static HTML for http://leiningen.org"
+  :dependencies [[enlive "1.0.1"]
+                 [cheshire "4.0.0"]
+                 [org.markdownj/markdownj "0.3.0-1.0.2b4"]]
+  :main leiningen.web)
+```
+
+Defining a dependency fits here into 1 line. And "GroupId" is not required for clojure packages! [Leiningen](http://leiningen.org/) is using 2 sources for the dependency resolution. First of all [clojars.org](https://clojars.org/), which is a simple version of a maven repository. The 2nd source is the [central maven repository](http://search.maven.org/). Dependencies in `project.clj` defined without a "GroupId" are resolved from clojars.org. The long dependency definitions with "GroupId" are resolved from search.maven.org. 
+
+The dependencies in a `project.clj` file can be explicitly fetched with this command: 
+
+```
+lein deps 
+```
+
+But they will be fetched anyway at compile time. 
+
+Publishing a package on clojars.org is pretty easy, after you singed up. 
+
+```
+lein pom
+scp pom.xml mylib.jar clojars@clojars.org:
+```
+
+### Pros 
+
+- The artifacts are singed! 
+- There are many mirrors available all over the world.
+- It simplifies the depdency definition of maven. 
+- It's easy to publish new artifacts. 
+- It's easy to learn. 
+- It alows to reuse Java artifacts from other maven repositories. 
+
+### Cons 
+
+- It violates the "Single Responsibility" pattern. Same as Maven. 
+- Licenses are not mandatory. 
+- No Mirrors. 
+
+[Leiningen](http://leiningen.org/) is not perfect, but it is doing many things right. 
+
 
 
 
