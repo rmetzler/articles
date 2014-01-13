@@ -321,8 +321,75 @@ Cocoapods is completely relying on GitHub as backend. There is one [CocoaPods/Sp
 
 CocoaPods is a young project. The quality of the Pod specs is very high, because of the human review. If they grow to the size of RubyGems this workflow will not scale anymore. But for right now it's good enough. 
 
+## Bower (Frontside JS & CSS)
 
+[Bower.io](http://bower.io/) is a package manager for frontside JavaScript and CSS.  Pretty much for everything what you are loading from the server to the browser. Packages like jquery.js and bootstrap.css for example. 
+
+The bower command line tool is available as package on NPM. It can be installed globally like this: 
+
+```
+npm install -g bower 
+```
+
+Installing a bower package works like this: 
+
+```
+bower install <package>#<version>
+```
+
+It downloads the package and his dependencies into a directory called "bower_components". 
+
+Each bower package is described in a bower.json file. Here an example: 
+
+```
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "main": "path/to/main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "<name>": "<version>",
+    "<name>": "<folder>",
+    "<name>": "<package>"
+  },
+  "devDependencies": {
+    "<test-framework-name>": "<version>"
+  }
+}
+```
+
+Bower is completely Git based and works without any user authentification. Everybody can register new packages like this: 
+
+```
+bower register <my-package-name> <git-endpoint>
+```
+
+Bower excepts that the root of the git-endpoint contains a `bower.json` file, describing the bower package. And it expects that there are some tags on the Git repository. The names of the tags are the version numbers.  
+
+To unregister a package you have to ask the maintainers in the [longest GitHub issue in the history of mankind](https://github.com/bower/bower/issues/120).  
+
+### Pros 
  
+- All packages are centralized at [bower.io](http://bower.io/). 
+- Learning curve is very low, very easy to understand how it works. 
+- It's easy to publish new packages. Works even without registration.   
+
+### Cons 
+
+- The packages are not signed! That can lead to security issues. 
+- No mirrors available. 
+- The process for unregestering a package is a No-Go. 
+- License informations are not mandatory. 
+- Many registered packages doesn't provide a bower.json in their git repository. 
+
+Bower is kind of cool, but the quality of the packages is many times bad. Unregistering a package is a pain. And a couple hundred registered packages doesn't provide a `bower.json` file in their repositories. 
+
+
+
+
 
 
 
