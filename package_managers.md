@@ -1,4 +1,4 @@
-# Application-level Package Managers, a comparison - pros & cons
+# Comparison of Application-level Package Managers - pros & cons
 
 In this article I will compare this 9 Package Managers. 
 
