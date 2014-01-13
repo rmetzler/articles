@@ -387,6 +387,71 @@ To unregister a package you have to ask the maintainers in the [longest GitHub i
 
 Bower is kind of cool, but the quality of the packages is many times bad. Unregistering a package is a pain. And a couple hundred registered packages doesn't provide a `bower.json` file in their repositories. User authentication and package validation would be necessary to improve that. 
 
+## Maven (Java)
+
+Maven is the package manager for Java. The central maven repositry is [Search.maven.org](http://search.maven.org/). A project and his dependencies are defined in an `pom.xml` file. Here is an example. 
+
+```
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.ploin.pmf</groupId>
+	<artifactId>ploinMailFactory</artifactId>
+	<packaging>jar</packaging>
+	<version>1.4.1</version>
+	<name>ploinMailFactory</name>
+	<url>http://www.ploinmailfactory.org</url>
+	<description>Loadbalancing for Mail Sending</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junitVersion}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+</project>
+
+```
+
+Each dependency is identified by: 
+
+- groupId
+- artifactId
+- verison
+
+Other properties like scope are optional. As you can see you need at least 5 lines to define 1 single dependency. Dependencies are checked, fetched, resolved and installed on each compile time. 
+
+```
+mvn compile 
+```
+
+The packages on the Maven Repository Server are pretty much maintained in a pre defined directory structure, based on groupId, artifactId and version of the artifact. The artifacts themselves are binaries, mostly `*.jar`, ` files. You can see it on this mirror from [ibiblio](http://mirrors.ibiblio.org/maven2/). 
+
+Publishing an artifact on the central maven repositry takes only 1 week. No! I'm not kidding you! First of all you have to signup at JIRA and then you have to open a ticket and upload files. The whole prozess is described [here](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide). And be prepaired to scroll. 
+
+### Pros 
+ 
+- The artifacts are singed! 
+- There are many mirrors available all over the world. 
+
+### Cons 
+ 
+- Pushing artifacts to the maven central repository is not as easy as it should be. Because this prozess is a pain in the ass ALL big Java Frameworks and companies are maintaining their own Maven Repository Servers. They push their artifacts first to their own MVN Server and then 1 or 2 weeks later the artifact appears on search.maven.org. 
+- Not really centralised. Because of the previous point. There are at least 30 different public maven repository servers out there, who are not mirroring search.maven.org. Java developers have to google to find the right repository server with the desired artifacts. 
+- Maven is a very complex tool! A `pom.xml` file can inherit from another `pom.xml` file. And a `pom.xml` file can include other `pom.xml` files. All that leads to complexity and sometimes to resolution errors. 
+- Maven violates the "Single Responsibility" pattern. Maven is not only doing dependecy management! It is doing all kind of things which has nothing to do with dependency management. For example executing tests, generating reports, generating JavaDoc and many other things which are, in other languages, done by other tools. 
+
+Maven is by far the most complex package manager I know. And know many of them! 
 
 
 
