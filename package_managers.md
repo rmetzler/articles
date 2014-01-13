@@ -73,7 +73,7 @@ Just execute this command in the directory where the `Gemfile` is placed and it 
 bundle install 
 ```
 
-This comand also creates or updates a `Gemfile.lock`. This file contains the actually locked versions of the dependencies in the `Gemfile` + their transtive dependencies. The locked versions in the `Gemfile.lock` are specially important when you work with version ranges. The `Gemfile.lock` is something you checkin to your SCM and never change by hand! More to that on [bundler.io](http://bundler.io/). 
+This command also creates or updates a `Gemfile.lock`. This file contains the actually locked versions of the dependencies in the `Gemfile` + their transitive dependencies. The locked versions in the `Gemfile.lock` are specially important when you work with version ranges. The `Gemfile.lock` is something you checkin to your SCM and never change by hand! More to that on [bundler.io](http://bundler.io/). 
 
  
 ### Pros 
@@ -88,16 +88,14 @@ This comand also creates or updates a `Gemfile.lock`. This file contains the act
 ### Cons 
 
 - There are no mirrors. If RubyGems.org is down you can not fetch GEMs anymore. 
-- The GEMs are not signed! That's a security problem! 
+- The GEMs are not signed! That can lead to security issues! 
 - Defining a license for a GEM is not mandatory.
-- The mechanism for defining GEM dependencies (.gemspec) is different from defining dependencies for non GEM projects (Gemfile).
 
-Bundler is one of my favourite package managers. You will not find much negative writing about it in the internet, besides the points which are listed here. 
-
+You will not find much negative writing about it in the internet, besides the points which are listed here. 
 
 ## NPM (Node.JS)
 
-[NPM](http://npmjs.org) is the package manager for [Node.JS](http://nodejs.org/). Libraries are stored as tgz files on the central Node.JS repository, which is [npmjs.org](http://npmjs.org). An npm package is a zipped directory with source code + a package.json file, which contains all the meta information about the package, such as name, version, description, dependencies and so on. A package can be published like this: 
+[NPM](http://npmjs.org) is the package manager for [Node.JS](http://nodejs.org/). Libraries are stored as tgz files on the central Node.JS repository, which is [npmjs.org](http://npmjs.org). An npm package is a zipped directory with source code and a package.json file, which contains all the meta information about the package, such as name, version, description, dependencies and so on. A package can be published like this: 
 
 ```
 npm publish <tarball>
@@ -146,22 +144,26 @@ Here is an example for a package.json file from a famous Node.JS library. I modi
 
 By executing the following command in a directory with a `package.json` file, NPM will download all dependencies from the `package.json` file, resolve transitive dependencies and place them into the right place. 
 
+```
+npm install 
+```
+
 ### Pros
 
-- All packages are centralized at npmjs.org. 
+- All packages are centralised at npmjs.org. 
 - Learning curve is very low, very easy to understand how it works. 
 - It's very easy to publish new packages on npmjs.org. It takes less then a minute! 
 - It has a very good REST JSON API. 
-- Besides npm packages, a tag on a git repository can be defined as a dependency. That makes it very easy to fork & patch a software library. 
+- Besides NPM packages, a tag on a git repository can be defined as a dependency. That makes it very easy to fork & patch a software library. 
 - NPM supports [semantic versioning](http://semver.org) and has an own operator which supports fetching always the newest patch/minor version of a package. 
 - There is an [NPM mirror](http://npmjs.eu/) in Europe.  
 
 ### Cons
 
-- The NPM packages are not signed! That's a security problem! 
-- Defining a license for a GEM is not mandatory.
+- The NPM packages are not signed! That might lead to security issues! 
+- Defining a license for a package is not mandatory.
 
-NPM is a very young package manager. They learned from the failures of other package managers. 
+NPM is a very young package manager. They learned from the failures of other package managers. It's almost prefect! 
 
 
 ## Composer (PHP)
@@ -181,14 +183,13 @@ Composer is similar to NPM. Dependencies are defined in a JSON file, called `com
 }
 ```
 
-Executing this command in a directory wiht `composer.json` will install all dependencies into your project. 
+Executing this command in a directory with `composer.json` will install all dependencies into your project and generate a `composer.lock` file, same as in Ruby the `Gemfile.lock`. 
 
 ```
 php composer.phar install
 ```
 
-One big difference to NPM is that [packagist.org](https://packagist.org/) doesn't host any files. It is completely based on Git/Svn/Hn tags. Submitting a package to [packagist.org](https://packagist.org/) means submitting a link to a public Git, Subversion or Hn repository. [packagist.org](https://packagist.org/) expects that there is a `composer.json` in the root directory of the master branch AND that there tags on the repository. The name of the tag is the version number displayed on [packagist.org](https://packagist.org/). 
-
+One big difference to NPM is that [packagist.org](https://packagist.org/) doesn't host any files. It is completely based on Git/Svn/Hn tags. Submitting a package to [packagist.org](https://packagist.org/) means submitting a link to a public Git, Subversion or Hn repository. [packagist.org](https://packagist.org/) expects that there is a `composer.json` in the root directory of the master branch AND that there are tags on the repository. The name of the tag is the version number displayed on [packagist.org](https://packagist.org/). 
 
 ### Pros 
  
@@ -197,19 +198,19 @@ One big difference to NPM is that [packagist.org](https://packagist.org/) doesn'
 - It's very easy to publish new packages on [packagist.org](https://packagist.org/).  You just have to submit a URL to a public Git repository. It takes less then a minute! 
 - It has a very good REST JSON API.  
 - It supports [semantic versioning](http://semver.org) and has an own operator which supports fetching always the newest patch/minor version of a package. 
-- Composer has a very unique feature called "minimum stability", which allows to specify the minimum stability for a requested dependency. 
+- Composer has a very unique and cool feature called "minimum stability", which allows to specify the minimum stability for a requested dependency. More to that on the official documentation. 
 
 ### Cons 
 
 - There are no mirrors. If packagist.org is down you can not fetch packages anymore. 
-- The packages are not signed! That's a security problem! 
+- The packages are not signed! It might lead to security issues! 
 - Defining a license for a package is not mandatory.
 
-The Composer / Packagist project is even younger then NPM. It is a big step forward for the whole PHP community. All big PHP frameworks moved already to composer / packagist.
+The Composer / Packagist project is even younger then NPM. It is a big step forward for the whole PHP community. All big PHP frameworks moved already to Composer / Packagist.
 
 ## PyPI (Python)
 
-[PyPI](https://pypi.python.org/pypi) is the central repository for python packages. Depdendencies are defined in a `setup.py` file, which is pretty much pure Python code. Here is an example: 
+[PyPI](https://pypi.python.org/pypi) is the central repository for python packages. Dependencies are defined in a `setup.py` file, which is pretty much pure Python code. Here is an example: 
 
 ```
 from setuptools import setup
@@ -259,7 +260,7 @@ python setup.py install
 
 The packages at [PyPI](https://pypi.python.org/pypi) are hosted as "*.tar.gz" files. Each packages contains the source code and a `setup.py` file with meta informations, such as name, version and dependencies. 
 
-With a little bit pre preparation a package can be published to PyPI with this 2 commands: 
+With a little bit preparation a package can be published to PyPI with this 2 commands: 
 
 ```
 python setup.py register -r PyPI
@@ -283,7 +284,7 @@ PyPI is a robust package manager! There is room for improvements, that for sure.
 
 ## CocoaPods (Objective-C)
 
-[CocoaPods.org](http://cocoapods.org/) is the central repository for CocoaPods, a package manager for Objective-C software libraries. Mainly used by iPhone devs. The CocoaPods command line tool is implemented in Ruby and hosted on RubyGems.org. It can be installed like this: 
+[CocoaPods.org](http://cocoapods.org/) is the central repository for CocoaPods, a package manager for Objective-C software libraries. Mainly used by iPhone developers. The CocoaPods command line tool is implemented in Ruby and hosted on RubyGems.org. It can be installed like this: 
 
 ```
 gem install cocoapods
@@ -385,11 +386,11 @@ To unregister a package you have to ask the maintainers in the [longest GitHub i
 - License informations are not mandatory. 
 - Many registered packages doesn't provide a bower.json in their git repository. The package registration process doesn't check if the package is valid, if it really contains a bower.json file or if there are some tags on the repository. 
 
-Bower is kind of cool, but the quality of the packages is many times bad. Unregistering a package is a pain. And a couple hundred registered packages doesn't provide a `bower.json` file in their repositories. User authentication and package validation would be necessary to improve that. 
+Bower is kind of cool, but the quality of the packages is many times bad. Unregistering a package is a pain. And a couple hundred registered packages even doesn't provide a `bower.json` file in their repositories. User authentication and package validation would be necessary to improve this. 
 
 ## Maven (Java)
 
-Maven is the package manager for Java. The central maven repositry is [Search.maven.org](http://search.maven.org/). A project and his dependencies are defined in an `pom.xml` file. Here is an example. 
+Maven is the package manager for Java. The central maven repository is [Search.maven.org](http://search.maven.org/). A project and his dependencies are described in an `pom.xml` file. Here is an example. 
 
 ```
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -435,23 +436,23 @@ Other properties like scope are optional. As you can see you need at least 5 lin
 mvn compile 
 ```
 
-The packages on the Maven Repository Server are pretty much maintained in a pre defined directory structure, based on groupId, artifactId and version of the artifact. The artifacts themselves are binaries, mostly `*.jar`, ` files. You can see it on this mirror from [ibiblio](http://mirrors.ibiblio.org/maven2/). 
+The packages on the Maven Repository Server are pretty much maintained in a pre defined directory structure, based on groupId, artifactId and version of the artefact. The artefacts themselves are binaries, mostly `*.jar` files. You can see it on this mirror from [ibiblio](http://mirrors.ibiblio.org/maven2/). 
 
-Publishing an artifact on the central maven repositry takes only 1 week. No! I'm not kidding you! First of all you have to signup at JIRA and then you have to open a ticket and upload files. The whole prozess is described [here](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide). And be prepaired to scroll. 
+Publishing an artefact on the central maven repository takes only 1 week. No! I'm not kidding you! First of all you have to signup at JIRA and open a ticket. The whole process is described [here](https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide). And be prepared to scroll :-)
 
 ### Pros 
  
-- The artifacts are singed! 
+- The artefacts are singed! 
 - Licenses are mandatory for publishing! 
 - There are many mirrors available all over the world. 
 
 ### Cons 
  
-- Pushing artifacts to the maven central repository is not as easy as it should be. Because this prozess is a pain in the ass ALL big Java Frameworks and companies are maintaining their own Maven Repository Servers. They push their artifacts first to their own MVN Server and then 1 or 2 weeks later the artifact appears on search.maven.org. 
-- Not really centralised. Because of the previous point. There are at least 30 different public maven repository servers out there, who are not mirroring search.maven.org. Java developers have to google to find the right repository server with the desired artifacts. 
-- Maven is a very complex tool! A `pom.xml` file can inherit from another `pom.xml` file. And a `pom.xml` file can include other `pom.xml` files. All that leads to complexity and sometimes to resolution errors. Another side effect of this architecutre is that resolving transitive dependencies this way is very slow, because different xml files have to be parsed to build a complete model for 1 single artifact. 
-- Maven violates the "Single Responsibility" pattern. Maven is not only doing dependecy management! It is doing all kind of things which has nothing to do with dependency management. For example executing tests, generating reports, generating JavaDoc, doing deployments and many other things which are, in other languages, done by other tools. 
-- Not sure why an artifact/package needs an "GroupId" AND an "ArtifactID" AND a version number. All other package managers are satisfied with a name and a version. KIS!
+- Pushing artefacts to the maven central repository is not as easy as it should be. Because this process is a pain in the ass ALL big Java Frameworks and companies are maintaining their own Maven Repository Servers. They push their artefacts first to their own MVN Server and then 1 or 2 weeks later the artefact appears on search.maven.org. 
+- Not really centralised. Because of the previous point. There are at least 30 different public maven repository servers out there, who are not mirroring search.maven.org, but host other artefacts who are not available on search.maven.org. Java developers have to google for the right repository server with the desired artefacts. 
+- Maven is a very complex tool! A `pom.xml` file can inherit from another `pom.xml` file. And a `pom.xml` file can include other `pom.xml` files. All that leads to complexity and sometimes to resolution errors. Another side effect of this architecture is that resolving transitive dependencies this way is very slow, because different xml files have to be downloaded and parsed to build a complete model for 1 single artefact. 
+- Maven violates the "Single Responsibility" pattern. Maven is not only doing dependency management! It is doing all kind of things which has nothing to do with dependency management. For example executing tests, generating reports, generating JavaDoc, doing deployments and many other things which are, in other languages, done by other tools. 
+- Not sure why an artefact/package needs a "GroupId" AND an "ArtifactID" AND a version number. All other package managers are satisfied with a name and a version. KIS!
 - Having 5 lines of XML code for 1 single dependency is kind of over kill! 
 
 Maven is by far the most complex package manager I know. And know many of them! 
@@ -470,7 +471,10 @@ Maven is by far the most complex package manager I know. And know many of them!
   :main leiningen.web)
 ```
 
-Defining a dependency fits here into 1 line. And "GroupId" is not required for clojure packages! [Leiningen](http://leiningen.org/) is using 2 sources for the dependency resolution. First of all [clojars.org](https://clojars.org/), which is a simple version of a maven repository. The 2nd source is the [central maven repository](http://search.maven.org/). Dependencies in `project.clj` defined without a "GroupId" are resolved from clojars.org. The long dependency definitions with "GroupId" are resolved from search.maven.org. 
+Defining a dependency fits here into 1 line. And "GroupId" is not required for Clojure packages! [Leiningen](http://leiningen.org/) is using 2 sources for the dependency resolution. 
+
+- For dependencies with GroupId it uses the [central maven repository](http://search.maven.org/). 
+- For dependencies without a GroupId it uses [clojars.org](https://clojars.org/), which is a maven repository, as well.
 
 The dependencies in a `project.clj` file can be explicitly fetched with this command: 
 
@@ -489,11 +493,11 @@ scp pom.xml mylib.jar clojars@clojars.org:
 
 ### Pros 
 
-- The artifacts are singed! 
-- It simplifies the depdency definition of maven. 
-- It's easy to publish new artifacts. 
-- It's easy to learn. 
-- It alows to reuse Java artifacts from other maven repositories. 
+- The artefacts are singed! 
+- It simplifies the dependency definition of maven. 
+- It's easy to publish new artefacts. 
+- It's easy to learn how it works. 
+- It allows to reuse Java artefacts from other maven repositories. 
 
 ### Cons 
 
