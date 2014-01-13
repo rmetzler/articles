@@ -490,7 +490,6 @@ scp pom.xml mylib.jar clojars@clojars.org:
 ### Pros 
 
 - The artifacts are singed! 
-- There are many mirrors available all over the world.
 - It simplifies the depdency definition of maven. 
 - It's easy to publish new artifacts. 
 - It's easy to learn. 
