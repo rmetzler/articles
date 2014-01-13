@@ -279,7 +279,52 @@ python setup.py sdist upload -r PyPI
 - Defining a license for a package is not mandatory.
 - No build-in support for semantic versioning. 
 
-PyPI is a robut package manager! There is room for improvements, that for sure. But the core commiters behind the project are aware of that and new features are in the pipeline. 
+PyPI is a robust package manager! There is room for improvements, that for sure. But the core commiters behind the project are aware of that and new features are in the pipeline. 
+
+## CocoaPods (Objective-C)
+
+[CocoaPods.org](http://cocoapods.org/) is the central repository for CocoaPods, a package manager for Objective-C software libraries. Mainly used by iPhone devs. The cocoapods command line tool is implemented in Ruby and hosted on RubyGems.org. It can be installed like this: 
+
+```
+gem install cocoapods
+```
+
+Dependencies are defined in a simple text file called `Podfile`. Here a simple example: 
+
+```
+platform :ios
+pod 'JSONKit',       '~> 1.4'
+pod 'Reachability',  '~> 3.0.0'
+```
+
+Executing this command in the root directory will install the dependencies: 
+
+```
+pod install 
+```
+
+Cocoapods is completely relying on GitHub as backend. There is one [CocoaPods/Specs](https://github.com/CocoaPods/Specs/) repository with all Pod specifications available on CocoPods.org. Submitting a new pod package works via pull-request. Each pull-request gets reviewed and merged by a human. That doesn't scale infinity but it scales for the current size and garantees a high quality for the pod specs.  
+
+### Pros 
+ 
+- All packages are centralized at [CocoaPods/Specs](https://github.com/CocoaPods/Specs/). 
+- Learning curve is very low, very easy to understand how it works. 
+- It's easy to publish new packages. Just send a pull-request on GitHub.  
+- License information is mandatory! Pull-requests for Pods without license definition will not be merged. 
+- It supports [semantic versioning](http://semver.org) and has an own operator which supports fetching always the newest patch/minor version of a package.
+- Very good documentation. 
+
+### Cons 
+
+- The packages are not signed! That can lead to security issues. 
+- No mirrors available. 
+
+CocoaPods is a young project. The quality of the Pod specs is very high, because of the human review. If they grow to the size of RubyGems this workflow will not scale anymore. But for right now it's good enough. 
+
+
+ 
+
+
 
 
 
