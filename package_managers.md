@@ -90,7 +90,7 @@ This comand also creates or updates a `Gemfile.lock`. This file contains the act
 - There are no mirrors. If RubyGems.org is down you can not fetch GEMs anymore. 
 - The GEMs are not signed! That's a security problem! 
 - Defining a license for a GEM is not mandatory.
-- The mechnism for defining GEM dependencies (.gemspec) is different from defining dependencies for non GEM projects (Gemfile).
+- The mechanism for defining GEM dependencies (.gemspec) is different from defining dependencies for non GEM projects (Gemfile).
 
 Bundler is one of my favourite package managers. You will not find much negative writing about it in the internet, besides the points which are listed here. 
 
@@ -192,12 +192,12 @@ One big difference to NPM is that [packagist.org](https://packagist.org/) doesn'
 
 ### Pros 
  
-- All packages are centralized at [packagist.org](https://packagist.org/). 
+- All packages are centralised at [packagist.org](https://packagist.org/). 
 - Learning curve is very low, very easy to understand how it works. 
 - It's very easy to publish new packages on [packagist.org](https://packagist.org/).  You just have to submit a URL to a public Git repository. It takes less then a minute! 
 - It has a very good REST JSON API.  
 - It supports [semantic versioning](http://semver.org) and has an own operator which supports fetching always the newest patch/minor version of a package. 
-- Composer has a very unique feature called "minimum stability", which alows to specify the minimum stability for a requested dependency. 
+- Composer has a very unique feature called "minimum stability", which allows to specify the minimum stability for a requested dependency. 
 
 ### Cons 
 
@@ -251,7 +251,7 @@ setup(name='giki',
 )
 ```
 
-Installing the depdencies works like this: 
+Installing the dependencies works like this: 
 
 ```
 python setup.py install
@@ -259,7 +259,7 @@ python setup.py install
 
 The packages at [PyPI](https://pypi.python.org/pypi) are hosted as "*.tar.gz" files. Each packages contains the source code and a `setup.py` file with meta informations, such as name, version and dependencies. 
 
-With a little bit pre preperation a package can be published to PyPI with this 2 commands: 
+With a little bit pre preparation a package can be published to PyPI with this 2 commands: 
 
 ```
 python setup.py register -r PyPI
@@ -268,7 +268,7 @@ python setup.py sdist upload -r PyPI
 
 ### Pros 
  
-- All packages are centralized at [PyPI](https://pypi.python.org/pypi). 
+- All packages are centralised at [PyPI](https://pypi.python.org/pypi). 
 - Learning curve is very low, very easy to understand how it works. 
 - It's easy to publish new packages on [PyPI](https://pypi.python.org/pypi). 
 - There are [multiple mirrors](http://www.pypi-mirrors.org/) for fail-over scenarios. 
@@ -283,7 +283,7 @@ PyPI is a robust package manager! There is room for improvements, that for sure.
 
 ## CocoaPods (Objective-C)
 
-[CocoaPods.org](http://cocoapods.org/) is the central repository for CocoaPods, a package manager for Objective-C software libraries. Mainly used by iPhone devs. The cocoapods command line tool is implemented in Ruby and hosted on RubyGems.org. It can be installed like this: 
+[CocoaPods.org](http://cocoapods.org/) is the central repository for CocoaPods, a package manager for Objective-C software libraries. Mainly used by iPhone devs. The CocoaPods command line tool is implemented in Ruby and hosted on RubyGems.org. It can be installed like this: 
 
 ```
 gem install cocoapods
@@ -303,11 +303,11 @@ Executing this command in the root directory will install the dependencies:
 pod install 
 ```
 
-Cocoapods is completely relying on GitHub as backend. There is one [CocoaPods/Specs](https://github.com/CocoaPods/Specs/) repository with all Pod specifications available on CocoPods.org. Submitting a new pod package works via pull-request. Each pull-request gets reviewed and merged by a human. That doesn't scale infinity but it scales for the current size and garantees a high quality for the pod specs.  
+CocoaPods is completely relying on GitHub as backend. There is one [CocoaPods/Specs](https://github.com/CocoaPods/Specs/) repository with all Pod specifications available on CocoPods.org. Submitting a new pod package works via pull-request. Each pull-request gets reviewed and merged by a human. That doesn't scale infinity but it scales for the current size and guarantees a high quality for the pod specs.  
 
 ### Pros 
  
-- All packages are centralized at [CocoaPods/Specs](https://github.com/CocoaPods/Specs/). 
+- All packages are centralised at [CocoaPods/Specs](https://github.com/CocoaPods/Specs/). 
 - Learning curve is very low, very easy to understand how it works. 
 - It's easy to publish new packages. Just send a pull-request on GitHub.  
 - License information is mandatory! Pull-requests for Pods without license definition will not be merged. 
@@ -361,7 +361,7 @@ Each bower package is described in a bower.json file. Here an example:
 }
 ```
 
-Bower is completely Git based and works without any user authentification. Everybody can register new packages like this: 
+Bower is completely Git based and works without any user authentication. Everybody can register new packages like this: 
 
 ```
 bower register <my-package-name> <git-endpoint>
@@ -373,7 +373,7 @@ To unregister a package you have to ask the maintainers in the [longest GitHub i
 
 ### Pros 
  
-- All packages are centralized at [bower.io](http://bower.io/). 
+- All packages are centralised at [bower.io](http://bower.io/). 
 - Learning curve is very low, very easy to understand how it works. 
 - It's easy to publish new packages. Works even without registration.   
 
@@ -381,11 +381,13 @@ To unregister a package you have to ask the maintainers in the [longest GitHub i
 
 - The packages are not signed! That can lead to security issues. 
 - No mirrors available. 
-- The process for unregestering a package is a No-Go. 
+- The process for unregistering a package is a No-Go. 
 - License informations are not mandatory. 
-- Many registered packages doesn't provide a bower.json in their git repository. 
+- Many registered packages doesn't provide a bower.json in their git repository. The package registration process doesn't check if the package is valid, if it really contains a bower.json file or if there are some tags on the repository. 
 
-Bower is kind of cool, but the quality of the packages is many times bad. Unregistering a package is a pain. And a couple hundred registered packages doesn't provide a `bower.json` file in their repositories. 
+Bower is kind of cool, but the quality of the packages is many times bad. Unregistering a package is a pain. And a couple hundred registered packages doesn't provide a `bower.json` file in their repositories. User authentication and package validation would be necessary to improve that. 
+
+
 
 
 
